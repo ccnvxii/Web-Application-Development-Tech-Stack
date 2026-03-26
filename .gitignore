@@ -1,0 +1,15 @@
+# --- PHP / Composer ---
+vendor/
+.phpunit.result.cache
+composer.phar
+.env
+.env.local
+
+# --- JetBrains (IntelliJ IDEA / PhpStorm) ---
+.idea/
+# If you want to share some IDE settings (like code style),
+# ignore only specific user files instead of the whole folder:
+# .idea/workspace.xml
+# .idea/usage.statistics.xml
+# .idea/tasks.xml
+# .idea/shelf/
