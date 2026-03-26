@@ -1,8 +1,7 @@
 <?php
-// Автоматичне перенаправлення, якщо метод не POST (Завдання 3)
-// Для демонстрації можна закоментувати, щоб побачити вивід даних через GET
+// Автоматичне перенаправлення, якщо метод не POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    // header("Location: error.php");
+    header("Location: index.php");
     echo "<i>Попередження: Метод запиту не POST (зараз " . $_SERVER['REQUEST_METHOD'] . ").</i><hr>";
 }
 ?>
