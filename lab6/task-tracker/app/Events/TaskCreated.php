@@ -10,5 +10,10 @@ class TaskCreated
 {
     use Dispatchable, SerializesModels;
 
+    /**
+     * Створення екземпляра події.
+     *
+     * @param Task $task Об'єкт створеної задачі.
+     */
     public function __construct(public Task $task) {}
 }

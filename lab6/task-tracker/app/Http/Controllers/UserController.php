@@ -2,48 +2,66 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Повертає список усіх користувачів.
      */
     public function index()
     {
-        //
+        return response()->json(User::all());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Створює нового користувача.
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+        ]);
+
+        // Хешуємо пароль перед збереженням
+        $validated['password'] = Hash::make($validated['password']);
+
+        $user = User::create($validated);
+        return response()->json($user, 201);
     }
 
     /**
-     * Display the specified resource.
+     * Повертає дані конкретного користувача за ID.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        return response()->json($user);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Оновлює дані користувача.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'string|max:255',
+            'email' => 'email|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update($validated);
+        return response()->json($user);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Видаляє користувача.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json(null, 204);
     }
 }

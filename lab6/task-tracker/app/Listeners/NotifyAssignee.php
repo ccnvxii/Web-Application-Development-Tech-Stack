@@ -7,9 +7,12 @@ use Illuminate\Support\Facades\Log;
 
 class NotifyAssignee
 {
-    public function handle(TaskCreated $event): void {
+    public function handle(TaskCreated $event): void
+    {
+        // Перевіряє чи призначено виконавця для цієї задачі
         if ($event->task->assignee_id) {
-            Log::info("Слухач подій: Користувачу {$event->task->assignee_id} призначено задачу '{$event->task->title}'");
+            // Записуєінформацію про сповіщення в системний лог (storage/logs/laravel.log)
+            Log::info("Користувачу {$event->task->assignee_id} призначено задачу '{$event->task->title}'");
         }
     }
 }
